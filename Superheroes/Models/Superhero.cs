@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Web;
 
 namespace Superheroes.Models
 {
-    public class Superhero
+    public class Superhero : IEnumerable
     {
 
         [Key]
@@ -23,7 +24,10 @@ namespace Superheroes.Models
 
         public string Catchphrase { get; set; }
 
-
+        public IEnumerator GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }
