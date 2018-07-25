@@ -222,7 +222,8 @@
     <Content Include="Content\Cyborg.css" />
     <Content Include="Content\Cyborg.min.css" />
     <Content Include="Content\lux.css" />
-    <Content Include="Content\wolverine.jpg" />
+    <Content Include="Images\logan.jpg" />
+    <Content Include="Images\wolverine.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
