@@ -40,29 +40,72 @@ namespace Superheroes.Controllers
             return View(superhero);
         }
 
+
+
+
         public ActionResult Delete(int? ID)
         {
-            if (ID == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Superhero superhero = db.Superhero.Where(s=>s.ID == ID).FirstOrDefault();
+            var superhero = db.Superhero.Where(s=>s.ID == ID).FirstOrDefault();
             if (superhero == null)
             {
-                return HttpNotFound();
+                
+                return View("Not Found");
+            } 
+            else
+            {
+                return View(superhero);
             }
-            return View(superhero);
+        
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-
-        public ActionResult Delete(Superhero superhero)
+        public ActionResult Delete(int ID)
         {
-            Superhero superheroToDelete = db.Superhero.Where(s=>s.ID == superhero.ID).FirstOrDefault();
+            var superheroToDelete = db.Superhero.Where(s=>s.ID ==ID).FirstOrDefault();
             db.Superhero.Remove(superheroToDelete);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+
+
+
+        public ActionResult Details(int ID)
+        {
+
+            var superHeroDetails = db.Superhero.Where(s => s.ID == ID).FirstOrDefault();
+            return View(superHeroDetails);
+
+        }
+
+
+        public ActionResult Edit(int? ID)
+        {
+            var superheroToEdit = db.Superhero.Where(s => s.ID == ID).FirstOrDefault();
+            if (superheroToEdit == null)
+            {
+
+                return View("Not Found");
+            }
+            else
+            {
+                return View(superheroToEdit);
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult Edit([Bind(Include = "ID, Name, AlterEgo, PrimarySuperheroAbility, SecondarySuperheroAbility, Catchphrase")]Superhero superheroToEdit)
+        {
+            var Hero = db.Superhero.Where(s => s.ID == superheroToEdit.ID).FirstOrDefault();
+            Hero.Name = superheroToEdit.Name;
+            Hero.AlterEgo = superheroToEdit.AlterEgo;
+            Hero.PrimarySuperheroAbility = superheroToEdit.PrimarySuperheroAbility;
+            Hero.SecondarySuperheroAbility = superheroToEdit.SecondarySuperheroAbility;
+            Hero.Catchphrase = superheroToEdit.Catchphrase;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+            
         }
 
     }
